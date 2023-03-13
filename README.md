@@ -16,7 +16,7 @@ Open API Web Search project is all about providing a simple way for developers t
 
 The goal of this project can be achieved with the following milestones:
 
-1. **Crawling**: Crawl webpages looking for API Definitions—mostly from lesser-known sources.
+1. **Crawling**: Crawl webpages looking for **valid** API Definitions—mostly from lesser-known sources.
 2. **Indexing**: Validate & store indexed crawl results.
 3. **Implementing a search algorithm**: Using this large dataset of OpenAPI/Swagger specifications, expose an API that abstracts away the complexity of searching the web for specific terms for finding APIs
 4. **Providing an interface**: Design a UI for API consumers and producers to initiate a search looking for APIs. Initially, the search can be done using metadata—the info object of the [OpenAPI document](https://spec.openapis.org/oas/latest.html#info-object).
