@@ -34,6 +34,11 @@ If you're an aspiring GSoC candidate, here's what you should know:
 - We really don’t believe in reinventing the wheel. Feel free to use an existing solution like [Common Crawl](https://commoncrawl.org/).
 - For any concerns, kindly reach out to [@vinitshahdeo](https://github.com/vinitshahdeo) or [@MikeRalphson](https://github.com/MikeRalphson).
 
+#### Qualifying task
+
+As mentioned in [`CONTRIBUTOR_GUIDANCE.md`](https://github.com/postman-open-technologies/gsoc-2023/blob/main/CONTRIBUTOR_GUIDANCE.md), please refer to **[#2](https://github.com/postman-open-technologies/openapi-web-search/issues/2)** for the qualifying task.
+
+
 ## Contact
 
 If you have any questions or queries, please [create an issue](openapi-web-search) on this repo (with a prefix GSoC 2023), start a topic on [our community forums in the GSoC category](https://community.postman.com/c/open-technology/gsoc/42) or send an email to us at gsoc@postman.com.
