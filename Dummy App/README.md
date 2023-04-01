@@ -1,4 +1,7 @@
+![app image](https://raw.githubusercontent.com/priyanshu-kun/openapi-web-search/main/Dummy%20App/Screenshot%20from%202023-04-01%2021-40-31.png)
+
 # Dummy openapi web search
+
 
 in order to start scraping then just uncomment the 
 `startCronJob(client)` code snippet at 
