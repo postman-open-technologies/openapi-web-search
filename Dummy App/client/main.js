@@ -29,7 +29,7 @@ function makeOutput(data) {
 
 async function makeSearch() {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/search`,{
+    const response = await axios.get(`${import.meta.env.VITE_SERVER_URL_CLOUD}/search`,{
       params: {
         q: query
       }
