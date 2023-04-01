@@ -44,7 +44,7 @@ app.get('/search', async (req, res) => {
   }
 })
 
-const port = 8081
+const port = 8081 || process.env.PORT
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 })
