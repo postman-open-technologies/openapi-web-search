@@ -3,8 +3,12 @@ import axios from "axios"
 const input = document.getElementById("search_field");
 const button = document.querySelector(".search_button")
 const searchResults = document.querySelector(".results");
+const loader = document.querySelector(".loader");
+const initialMsg = document.querySelector(".initial_msg")
 let query = ""
 input.value = query;
+
+loader.style.display = "none";
 
 
 
@@ -29,12 +33,18 @@ function makeOutput(data) {
 
 async function makeSearch() {
   try {
+    loader.style.display = "block";
+    initialMsg.style.display = "none";
     const response = await axios.get(`${import.meta.env.VITE_SERVER_URL_CLOUD}/search`,{
       params: {
         q: query
       }
     })
     makeOutput(response.data)
+    loader.style.display = "none";
+    initialMsg.style.display = "block";
+    input.value = ""
+    query = ""
   }
   catch(e) {
     console.error("Something got wrong.",e)
@@ -53,6 +63,4 @@ button.addEventListener("click",(e) => {
     return;
   }
   makeSearch();
-  input.value = ""
-  query = ""
 })
