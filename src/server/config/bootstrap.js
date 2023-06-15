@@ -1,3 +1,4 @@
+const datasetCrawler = require('../api/scheduledTasks/scheduler');
 /**
  * Seed Function
  * (sails.config.bootstrap)
@@ -10,6 +11,8 @@
  */
 
 module.exports.bootstrap = async function() {
+
+  datasetCrawler.start();
 
   // By convention, this is a good place to set up fake data during development.
   //
