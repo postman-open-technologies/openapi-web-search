@@ -1,12 +1,12 @@
 const cron = require('node-cron');
-const CrawlerFasade = require('../Fasades/CrawlerFasade');
+const CrawlerFacade = require('../Facades/CrawlerFacade');
 const CommonCrawlDriver = require('../drivers/CommonCrawlDriver');
 const GoogleBigQueryDriver = require('../drivers/GoogleBigQueryDriver');
 
 const commonCrawlDriver = new CommonCrawlDriver();
-const commonCrawlFasade = new CrawlerFasade(commonCrawlDriver);
+const commonCrawlFacade = new CrawlerFacade(commonCrawlDriver);
 const googleBigQueryDriver = new GoogleBigQueryDriver();
-const googleBigQueryCrawlFasade = new CrawlerFasade(googleBigQueryDriver);
+const googleBigQueryCrawlFacade = new CrawlerFacade(googleBigQueryDriver);
 const { crawlCommonCrawlDataset, crawlGoogleBigQueryDataset } = require('../services/CrawlerService');
 
 class DatasetCrawler {
@@ -15,7 +15,7 @@ class DatasetCrawler {
   }
 
   async start() {
-    const commonCrawlIndexData = await crawlCommonCrawlDataset(commonCrawlFasade);
+    const commonCrawlIndexData = await crawlCommonCrawlDataset(commonCrawlFacade);
     console.log(commonCrawlIndexData);
 
     // const googleBigQueryIndexData = await crawlGoogleBigQueryDataset();
