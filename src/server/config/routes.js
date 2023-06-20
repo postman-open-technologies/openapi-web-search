@@ -10,5 +10,6 @@
 
 module.exports.routes = {
 
+  '/api/v1/run/crawler': 'CrawlingController.start-crawling'
 
 };
