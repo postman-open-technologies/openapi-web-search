@@ -2,10 +2,10 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const readline = require('readline');
 const zlib = require('zlib');
-const { downloadFile } = require('../services/download-service');
+const { downloadFile } = require('../services/DownloadService');
 
 module.exports = {
-  retrieveUrlsForIndexFiles: async function (url) {
+  retrieveIndexFilesUrlsFromDirs: async function (url) {
     try {
       const response = await downloadFile(url);
       const gunzip = zlib.createGunzip();
@@ -23,15 +23,22 @@ module.exports = {
 
       return links;
     } catch (error) {
-      console.error(error.message);
+      throw new Error(error);
     }
   },
-  retrieveIndexUrlsFromCCServer: async function (url) {
+  retrieveUrlsDirectoriesFromCCServer: async function (url,dataFetchingFlag) {
     try {
       const links = [];
       const { data } = await axios.get(url);
       const html = data;
       const $ = await cheerio.load(html);
+      if(!dataFetchingFlag) {
+        const row = $('tbody tr')[0];
+        const linkTd = $(row).find('td:last-child');
+        const link = linkTd.find('a').attr('href');
+        links.push(link);
+        return links;
+      }
       $('tbody tr').each((index, row) => {
         const linkTd = $(row).find('td:last-child');
         const link = linkTd.find('a').attr('href');
@@ -39,7 +46,7 @@ module.exports = {
       });
       return links;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   }
 };
