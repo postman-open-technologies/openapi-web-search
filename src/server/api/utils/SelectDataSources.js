@@ -6,10 +6,10 @@ const {
   retrieveDefinitionsFromGithub,
 } = require('../drivers/GithubCrawlerDriver');
 module.exports = {
-  selectDataSources: async function (dataSource, dataFetchingFlag) {
+  selectDataSources: async function (dataSource, historicalData) {
     switch (dataSource) {
       case 'commonCrawl':
-        return await retrieveDefinitionsFromCC(dataFetchingFlag);
+        return await retrieveDefinitionsFromCC(historicalData);
       case 'github':
         return await retrieveDefinitionsFromGithub();
       case 'bigQuery':

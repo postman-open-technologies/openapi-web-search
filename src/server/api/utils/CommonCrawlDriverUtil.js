@@ -26,13 +26,13 @@ module.exports = {
       throw new Error(error);
     }
   },
-  retrieveUrlsDirectoriesFromCCServer: async function (url,dataFetchingFlag) {
+  retrieveUrlsDirectoriesFromCCServer: async function (url,historicalData) {
     try {
       const links = [];
       const { data } = await axios.get(url);
       const html = data;
       const $ = await cheerio.load(html);
-      if(!dataFetchingFlag) {
+      if(!historicalData) {
         const row = $('tbody tr')[0];
         const linkTd = $(row).find('td:last-child');
         const link = linkTd.find('a').attr('href');

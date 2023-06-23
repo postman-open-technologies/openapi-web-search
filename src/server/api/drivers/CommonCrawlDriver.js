@@ -10,11 +10,11 @@ const { flattenCCFilesResults } = require('../utils/FlattenCCFilesResults');
 const { processDirectoriesInBatches } = require('../utils/ProcessDirectoriesInBatches');
 
 module.exports = {
-  retrieveDefinitionsFromCC: async function (dataFetchingFlag) {
+  retrieveDefinitionsFromCC: async function (historicalData) {
     try {
       const crawledDirectories = await retrieveUrlsDirectoriesFromCCServer(
         URL,
-        dataFetchingFlag
+        historicalData
       );
       /**
       * Implement a batch processing mechanism to retrieve URLs for index files
