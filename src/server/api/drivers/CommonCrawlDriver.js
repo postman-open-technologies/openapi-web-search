@@ -4,37 +4,41 @@ const {
   DELAY,
 } = require('../constants/Constants');
 const {
-  retrieveUrlsDirectoriesFromCCServer,
+  retrieveDirectoriesUrlsFromCCServer,
 } = require('../utils/CommonCrawlDriverUtil');
+const {ExponentialBackOff} = require('../utils/ExponentialBackOff');
 const { flattenCCFilesResults } = require('../utils/FlattenCCFilesResults');
-const { processDirectoriesInBatches } = require('../utils/ProcessDirectoriesInBatches');
+const {
+  processDirectoriesInBatches,
+} = require('../utils/ProcessDirectoriesInBatches');
 
 module.exports = {
-  retrieveDefinitionsFromCC: async function (dataFetchingFlag) {
+  /**
+   * Retrieves API definitions from Common Crawl by performing the following steps:
+   * 1. Retrieve URLs for directories from the Common Crawl server.
+   * 2. Process the crawled directories in batches, asynchronously retrieving URLs for index files.
+   * 3. Flatten the resulting 3D array of API definitions into a 1D array.
+   *
+   * @param {boolean} latest - Indicates whether to retrieve the latest data from Common Crawl.
+   * @returns {Array<string>} The flattened 1D array of ccIndexDirsUrls.
+   * @throws {Error} If an error occurs during the retrieval process.
+   */
+  retrieveDefinitionsFromCC: async function (latest) {
     try {
-      const crawledDirectories = await retrieveUrlsDirectoriesFromCCServer(
-        URL,
-        dataFetchingFlag
-      );
-      /**
-      * Implement a batch processing mechanism to retrieve URLs for index files
-      * from directories obtained by scraping the Common Crawl server.
-      * Process the crawled directories in batches, adding them to the ccFilesPromises array for asynchronous processing.
-      * Each batch contains a subset of directories from the crawledDirectories array.
-      * If there are remaining directories after processing a batch, a delay is introduced before processing the next batch.
-      */
-      const ccFilesResults = await processDirectoriesInBatches(crawledDirectories,DIRECTORIES_BATCH_SIZE,DELAY);
-      /**
-       * Flattens a 3D array of ccFilesResults into a 1D array using the reduce method.
-       * The resulting array will contain all the elements from the nested arrays.
-       *
-       * @param {Array} ccFilesResults - The 3D array of ccFilesResults to be flattened.
-       * @returns {Array} - The flattened 1D array of ccFilesResults.
-       */
-      const flattedResult = flattenCCFilesResults(ccFilesResults);
-      return flattedResult;
+      let crawledDirectories;
+
+      try {
+        crawledDirectories = await retrieveDirectoriesUrlsFromCCServer(
+          URL,
+          latest
+        );
+      } catch (error) {
+        throw error;
+      }
+
+      return await ExponentialBackOff(crawledDirectories);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   },
 };

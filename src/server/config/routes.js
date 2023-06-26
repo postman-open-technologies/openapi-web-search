@@ -10,15 +10,6 @@
 
 module.exports.routes = {
 
-  /**
-   * payload for a POST route
-   *
-   * dataSource: commonCrawl;
-   * dataSource: bigQuery;
-   * dataSource: github;
-   * dataSource: web;
-   * etc...
-   */
-  'POST /api/v1/run/crawler': 'CrawlingController.start-crawling'
+  'POST /api/v1/run/crawler': 'CrawlingController.startCrawling'
 
 };
