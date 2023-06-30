@@ -1,16 +1,10 @@
 const {
-  URL,
-  DIRECTORIES_BATCH_SIZE,
-  DELAY,
+  CC_SERVER_URL
 } = require('../constants/Constants');
 const {
   retrieveDirectoriesUrlsFromCCServer,
 } = require('../utils/CommonCrawlDriverUtil');
-const {ExponentialBackOff} = require('../utils/ExponentialBackOff');
-const { flattenCCFilesResults } = require('../utils/FlattenCCFilesResults');
-const {
-  processDirectoriesInBatches,
-} = require('../utils/ProcessDirectoriesInBatches');
+const {processDirectoriesWithExponentialRetry} = require('../utils/processDirectoriesWithExponentialRetry');
 
 module.exports = {
   /**
@@ -29,14 +23,16 @@ module.exports = {
 
       try {
         crawledDirectories = await retrieveDirectoriesUrlsFromCCServer(
-          URL,
+          CC_SERVER_URL,
           latest
         );
       } catch (error) {
         throw error;
       }
 
-      return await ExponentialBackOff(crawledDirectories);
+      const indexFiles = await processDirectoriesWithExponentialRetry(crawledDirectories);
+
+      return indexFiles;
     } catch (error) {
       throw error;
     }

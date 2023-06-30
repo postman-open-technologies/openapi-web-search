@@ -10,7 +10,7 @@ module.exports = {
    * @returns {<Array<string>>} retrieved index file URLs.
    * @throws {Error} If an error occurs during the execution.
    */
-  ExponentialBackOff: async function (crawledDirectories) {
+  processDirectoriesWithExponentialRetry: async function (crawledDirectories) {
     try {
       let resolvedInnerResults;
       let innerResults;

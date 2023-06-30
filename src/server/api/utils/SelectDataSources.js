@@ -27,7 +27,7 @@ module.exports = {
         return await retrieveDefinitionsFromBigQuery();
 
       default:
-        return res.badRequest('Invalid data source');
+        return res.badRequest('Invalid data source.');
     }
   },
 };
