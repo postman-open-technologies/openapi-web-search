@@ -12,7 +12,7 @@ There are already known sources like [GitHub](https://github.com/), [SwaggerHub]
 
 ## What’s Open API Web Search?
 
-Open API Web Search project is all about providing a simple way for developers to find existing Swagger and OpenAPI definitions on the open web—mostly from lesser-known sources. The ultimate goal of this project is to build a search engine for APIs where API consumers and producers can discover APIs using keywords that abstract away the complexity of searching the web for specific terms, helping identify APIs in a sea of web pages.
+Open API Web Search project is all about providing a simple way for developers to find existing Swagger and OpenAPI definitions on the open web—mostly from lesser-known sources. The ultimate goal of this project is to build a search engine for APIs where API consumers and producers can discover APIs using keywords that abstract away the complexity of searching the web for specific terms, helping identify APIs in a sea of web pages. Learn how Open API Web Search can help [unleash the power of open APIs](https://vinitshahdeo.dev/open-api-web-search).
 
 The goal of this project can be achieved with the following milestones:
 
