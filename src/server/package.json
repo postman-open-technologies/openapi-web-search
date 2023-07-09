@@ -1,0 +1,53 @@
+{
+  "name": "openapi-web-search",
+  "private": true,
+  "version": "0.0.0",
+  "description": "An open-source tool for discovering Swagger and OpenAPI definitions on the web. It crawls web pages, validates API definitions, and indexes them for an ongoing search. Simplifying API discovery by locating documentation, repositories, and other essential aspects of running an API.",
+  "keywords": [
+    "Open-source",
+    "Swagger",
+    "Crawling",
+    "API-search",
+    "Common-crawl",
+    "Web-indexing",
+    "API-discovery",
+    "OpenAPI",
+    "API",
+    "sails.js",
+    "ELK-stack",
+    "elasticsearch",
+    "kibana"
+  ],
+  "dependencies": {
+    "@sailshq/lodash": "^3.10.3",
+    "amqplib": "^0.10.3",
+    "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12",
+    "exponential-backoff": "^3.1.1",
+    "node-cron": "^3.0.2",
+    "sails": "^1.5.4",
+    "sails-hook-orm": "^4.0.0",
+    "sails-hook-sockets": "^2.0.0",
+    "zlib": "^1.0.5"
+  },
+  "devDependencies": {
+    "eslint": "5.16.0",
+    "nodemon": "^2.0.22"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node app.js",
+    "test": "npm run lint && npm run custom-tests && echo 'Done.'",
+    "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
+    "dev": "nodemon app.js"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/postman-open-technologies/openapi-web-search"
+  },
+  "author": "Priyanshu Sharma",
+  "license": "MIT",
+  "engines": {
+    "node": "^14.21"
+  }
+}

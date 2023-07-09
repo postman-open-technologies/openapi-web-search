@@ -1,0 +1,17 @@
+{
+  "definitions": [
+    "openapi.json",
+    "openapi.yaml",
+    "openapi.yml",
+    "swagger.json",
+    "swagger.yaml",
+    "swagger.yml"
+  ],
+  "keywords": [
+    "openapi",
+    "swagger"
+  ],
+  "subdomain": [
+    "api"
+  ]
+}
