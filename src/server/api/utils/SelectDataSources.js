@@ -18,13 +18,28 @@ module.exports = {
   selectDataSources: async function (dataSource, latest) {
     switch (dataSource) {
       case 'commonCrawl':
-        return await retrieveDefinitionsFromCC(latest);
+        try {
+          return await retrieveDefinitionsFromCC(latest);
+        }
+        catch(error) {
+          throw error;
+        }
 
       case 'github':
-        return await retrieveDefinitionsFromGithub();
+        try {
+          return await retrieveDefinitionsFromGithub();
+        }
+        catch(error) {
+          throw error;
+        }
 
       case 'bigQuery':
-        return await retrieveDefinitionsFromBigQuery();
+        try {
+          return await retrieveDefinitionsFromBigQuery();
+        }
+        catch(error) {
+          throw error;
+        }
 
       default:
         return res.badRequest('Invalid data source.');

@@ -50,9 +50,23 @@ module.exports = {
   retrieveDirectoriesUrlsFromCCServer: async function (url, latest) {
     try {
       const links = [];
-      const { data } = await axios.get(url);
-      const html = data;
-      const $ = await cheerio.load(html);
+      let Data;
+      let $;
+
+      try {
+        const { data } = await axios.get(url);
+        Data = data;
+      } catch (error) {
+        throw error;
+      }
+
+      const html = Data;
+
+      try {
+        $ = await cheerio.load(html);
+      } catch (error) {
+        throw error;
+      }
 
       if (latest) {
         const row = $('tbody tr')[0];

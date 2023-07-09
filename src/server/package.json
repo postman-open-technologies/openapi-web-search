@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "@sailshq/lodash": "^3.10.3",
+    "amqplib": "^0.10.3",
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
     "exponential-backoff": "^3.1.1",

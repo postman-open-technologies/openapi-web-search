@@ -35,31 +35,26 @@ module.exports = {
    *   ...
    * ]
    */
-  'startCrawling': async function (req, res) {
+  startCrawling: async function (req, res) {
     try {
       const { dataSource } = req.body;
       /**
        * If req.query.latest is truthy and equals the string 'true', then latest is set to true; else latest is set to false;
        * otherwise, it is set to the default value true.
        */
-      const latest = req.query.latest ? req.query.latest === 'true': true;
-      let apiDefinitions;
+      const latest = req.query.latest ? req.query.latest === 'true' : true;
 
       if (!dataSource) {
         return res.badRequest('Data source not provided');
       }
 
       try {
-        apiDefinitions = await selectDataSources(dataSource, latest);
+        await selectDataSources(dataSource, latest);
       } catch (error) {
         throw error;
       }
 
-      if (!apiDefinitions || apiDefinitions.length === 0) {
-        return res.notFound('No API definitions found');
-      }
-
-      return res.json(apiDefinitions);
+      return res.status(202).json({message: 'downloading and processing has begun.'});
     } catch (error) {
       return res.serverError(error);
     }

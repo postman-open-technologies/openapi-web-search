@@ -1,3 +1,4 @@
+const childProcess = require('child_process');
 /**
  * Seed Function
  * (sails.config.bootstrap)
@@ -9,22 +10,26 @@
  * https://sailsjs.com/config/bootstrap
  */
 
-module.exports.bootstrap = async function() {
+module.exports.bootstrap = async function () {
+  // Spawn the worker.js script as a child process
+  const workerProcess = childProcess.fork(
+    `${__dirname}/../api/workers/DownloadAndProcessWorker.js`
+  );
 
-  // By convention, this is a good place to set up fake data during development.
-  //
-  // For example:
-  // ```
-  // // Set up fake development data (or if we already have some, avast)
-  // if (await User.count() > 0) {
-  //   return;
-  // }
-  //
-  // await User.createEach([
-  //   { emailAddress: 'ry@example.com', fullName: 'Ryan Dahl', },
-  //   { emailAddress: 'rachael@example.com', fullName: 'Rachael Shaw', },
-  //   // etc.
-  // ]);
-  // ```
+  // Handle any errors from the worker process
+  workerProcess.on('error', (error) => {
+    console.error('Worker process error:', error);
+  });
 
+  // Handle the exit of the worker process
+  workerProcess.on('exit', (code) => {
+    console.log('Worker process exited with code:', code);
+  });
+
+  // Handle a graceful shutdown of the worker process on Sails.js app termination
+  process.on('SIGINT', () => {
+    console.log('Terminating worker process...');
+    workerProcess.kill('SIGINT');
+    process.exit();
+  });
 };

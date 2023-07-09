@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('axios');
 
 module.exports = {
   /**
@@ -9,7 +9,6 @@ module.exports = {
    */
   downloadFile: async function (url) {
     try {
-
       return await axios({
         url,
         method: 'GET',
@@ -26,9 +25,9 @@ module.exports = {
           process.stdout.write(
             `Downloading: ${percent}% (${downloaded}/${total} bytes)`
           );
+
         },
       });
-
     } catch (error) {
       console.error(error);
       throw error;
