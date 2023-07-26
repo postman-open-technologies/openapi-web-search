@@ -1,5 +1,6 @@
-const { connectRabbitMQ } = require('../utils/ConnectRabbitMQ');
-const { processJob } = require('../utils/ProcessJob');
+const { QUEUE_NAME } = require('../constants/Constants');
+const { connectRabbitMQ } = require('../utils/ConnectRabbitMQUtils');
+const { processJob } = require('../utils/ProcessJobUtils');
 
 module.exports = {
   startWorker: async function () {
@@ -8,38 +9,32 @@ module.exports = {
       let queueName;
 
       try {
-        const { channel, QUEUE_NAME, connection } = await connectRabbitMQ();
+        const { channel, QUEUE_NAME } = await connectRabbitMQ();
         Channel = channel;
         queueName = QUEUE_NAME;
-        Connection = connection;
       } catch (error) {
         throw error;
       }
 
-      let isProcessing = false;
+      Channel.prefetch(1);
+      console.log(`[*] Waiting for messages in ${QUEUE_NAME}. To exit press CTRL+C`);
 
       Channel.consume(queueName, async (message) => {
-        if (!message || isProcessing) {
-          // Check if message is null or if another job is already being processed
-          if (message) {
-            Channel.reject(message, true);
-          }
-          return;
+
+        if (!message) {
+          Channel.reject(message, true);
         }
 
         const job = JSON.parse(message.content.toString());
-
-        isProcessing = true;
+        sails.config.globals.isProcessing = true;
 
         try {
-          await processJob(job);
-          Channel.ack(message);
+          await processJob(job, Channel, message);
         } catch (error) {
-          console.error('An error occurred:', error);
-          Channel.reject(message, true);
-        } finally {
-          isProcessing = false;
+          console.error(error.message);
+          Channel.nack(message, false, true);
         }
+
       });
     } catch (error) {
       throw error;

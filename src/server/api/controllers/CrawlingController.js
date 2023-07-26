@@ -1,4 +1,6 @@
-const { selectDataSources } = require('../utils/SelectDataSources');
+const { cleanDB } = require('../utils/CleanDBUtils');
+const { saveIndexFiles } = require('../utils/SaveIntoDBUtils');
+const { selectDataSources } = require('../utils/SelectDataSourcesUtils');
 
 module.exports = {
   /**
@@ -48,13 +50,16 @@ module.exports = {
         return res.badRequest('Data source not provided');
       }
 
-      try {
-        await selectDataSources(dataSource, latest);
-      } catch (error) {
-        throw error;
+      const indexFiles = await selectDataSources(dataSource, latest);
+
+      if(indexFiles.length === 0) {
+        return res.notFound('Cannot able to scrape index files.');
       }
 
-      return res.status(202).json({message: 'downloading and processing has begun.'});
+      await cleanDB(IndexFilesModel);
+      await saveIndexFiles(indexFiles);
+
+      return res.json({indexFiles});
     } catch (error) {
       return res.serverError(error);
     }

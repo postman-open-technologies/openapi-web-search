@@ -1,13 +1,10 @@
 const { CC_SERVER_URL } = require('../constants/Constants');
 const {
   retrieveDirectoriesUrlsFromCCServer,
-} = require('../utils/CommonCrawlDriverUtil');
+} = require('../utils/CommonCrawlDriverUtils');
 const {
   processDataWithExponentialRetry,
-} = require('../utils/ProcessDataWithExponentialRetry');
-const {
-  downloadAndProcessIndexFilesInBackground,
-} = require('../utils/DownloadAndProcessIndexFiles');
+} = require('../utils/ProcessDataWithExponentialRetryUtils');
 
 module.exports = {
   /**
@@ -22,35 +19,13 @@ module.exports = {
    */
   retrieveDefinitionsFromCC: async function (latest) {
     try {
-      let crawledDirectories;
-      let indexFiles;
+      const crawledDirectories = await retrieveDirectoriesUrlsFromCCServer(
+        CC_SERVER_URL,
+        latest
+      );
 
-      try {
-        crawledDirectories = await retrieveDirectoriesUrlsFromCCServer(
-          CC_SERVER_URL,
-          latest
-        );
-      } catch (error) {
-        throw error;
-      }
-
-      try {
-        indexFiles = await processDataWithExponentialRetry(crawledDirectories);
-      } catch (error) {
-        throw error;
-      }
-
-      try {
-        // Right now, there are two main problem with that function, First is I cannot able use parallel processing functionality using nodejs clusters because of that I cannot able to maximize the utilization of nodejs. And second one is How? I have got 503 error from CC server it is not reproducible, I have got that randomly.
-        /**
-         * TODO'S
-         * [] Implement parallel processing using clusters.
-         * [] Fix 503 error
-         */
-        await downloadAndProcessIndexFilesInBackground(indexFiles);
-      } catch (error) {
-        throw error;
-      }
+      const indexFiles = processDataWithExponentialRetry(crawledDirectories);
+      return indexFiles;
     } catch (error) {
       throw error;
     }

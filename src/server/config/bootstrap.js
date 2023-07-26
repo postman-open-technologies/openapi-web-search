@@ -1,4 +1,5 @@
 const childProcess = require('child_process');
+const mongoose = require('mongoose');
 /**
  * Seed Function
  * (sails.config.bootstrap)
@@ -32,4 +33,18 @@ module.exports.bootstrap = async function () {
     workerProcess.kill('SIGINT');
     process.exit();
   });
+
+
+  try {
+    await mongoose.connect(sails.config.datastores.default.url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB connected successfully!');
+  } catch (err) {
+    console.error('Error connecting to MongoDB:', err.message);
+    throw error;
+  }
+
+
 };

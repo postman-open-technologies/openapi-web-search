@@ -16,33 +16,21 @@ module.exports = {
    * @throws {Error} If an error occurs during the retrieval process or if an invalid data source is provided.
    */
   selectDataSources: async function (dataSource, latest) {
-    switch (dataSource) {
-      case 'commonCrawl':
-        try {
+    try {
+      switch (dataSource) {
+        case 'commonCrawl':
           return await retrieveDefinitionsFromCC(latest);
-        }
-        catch(error) {
-          throw error;
-        }
-
-      case 'github':
-        try {
+        case 'github':
           return await retrieveDefinitionsFromGithub();
-        }
-        catch(error) {
-          throw error;
-        }
-
-      case 'bigQuery':
-        try {
+        case 'bigQuery':
           return await retrieveDefinitionsFromBigQuery();
-        }
-        catch(error) {
-          throw error;
-        }
-
-      default:
-        return res.badRequest('Invalid data source.');
+        default:
+          throw new Error(
+            'The query parameter provided is invalid. Please use one of the following three options: commonCrawl, github, or bigQuery.'
+          );
+      }
+    } catch (error) {
+      throw error;
     }
   },
 };

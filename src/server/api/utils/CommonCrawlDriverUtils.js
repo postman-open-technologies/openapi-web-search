@@ -63,7 +63,7 @@ module.exports = {
       const html = Data;
 
       try {
-        $ = await cheerio.load(html);
+        $ = cheerio.load(html);
       } catch (error) {
         throw error;
       }
