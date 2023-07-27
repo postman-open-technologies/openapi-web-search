@@ -1,4 +1,11 @@
 module.exports = {
+  /**
+   * Formats the given size in bytes into a human-readable string representation with appropriate units.
+   *
+   * @function formatSizeUnits
+   * @param {number} bytes - The size in bytes to be formatted.
+   * @returns {string} A human-readable string representation of the size with appropriate units (e.g., KB, MB, GB, TB).
+ */
   formatSizeUnits: function (bytes) {
     switch (true) {
       case bytes >= 1099511627776:

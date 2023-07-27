@@ -7,16 +7,14 @@ const {
 } = require('../utils/ProcessDataWithExponentialRetryUtils');
 
 module.exports = {
-  /**
-   * Retrieves API definitions from Common Crawl by performing the following steps:
-   * 1. Retrieve URLs for directories from the Common Crawl server.
-   * 2. Process the crawled directories in batches, asynchronously retrieving URLs for index files.
-   * 3. Flatten the resulting 3D array of API definitions into a 1D array.
-   *
-   * @param {boolean} latest - Indicates whether to retrieve the latest data from Common Crawl.
-   * @returns {Array<string>} The flattened 1D array of ccIndexDirsUrls.
-   * @throws {Error} If an error occurs during the retrieval process.
-   */
+ /**
+ * Retrieves definitions from the CC server.
+ *
+ * @function retrieveDefinitionsFromCC
+ * @param {boolean} latest - Whether to retrieve the latest definitions or not.
+ * @returns {Array} returning an array of index file URLs.
+ * @throws {Error} If there is an error during the retrieval process, it will be thrown.
+ */
   retrieveDefinitionsFromCC: async function (latest) {
     try {
       const crawledDirectories = await retrieveDirectoriesUrlsFromCCServer(

@@ -3,20 +3,20 @@ const { retrieveIndexFilesUrlsFromDirs } = require('./CommonCrawlDriverUtils');
 
 module.exports = {
   /**
-   * Perform exponential backoff retry for retrieving index file URLs from directories.
+   * Perform exponential back-off retry for retrieving index file URLs from directories.
    *
    * @async
    * @param {Array} crawledDirectories - The array of directories to retrieve index file URLs from.
-   * @returns {<Array<string>>} retrieved index file URLs.
+   * @returns {Array<string>} retrieved index file URLs.
    * @throws {Error} If an error occurs during the execution.
    */
-  processDataWithExponentialRetry: async function (crawlDirectories) {
+  processDataWithExponentialRetry: async function (crawledDirectories) {
     try {
       let resolvedInnerResults;
       let innerResults;
 
       const backOffResults = await Promise.all(
-        crawlDirectories.map(async (url) => {
+        crawledDirectories.map(async (url) => {
           innerResults = await backOff(
             () => retrieveIndexFilesUrlsFromDirs(url),
             {

@@ -1,6 +1,13 @@
 const { URL_REGEX, API_DEFINITION_REGEX, SUB_DOMAIN_REGEX, KEYWORD_REGEX } = require('../constants/Constants');
 
 module.exports = {
+  /**
+   * Parses the given text to extract URLs and filter API definition URLs.
+   *
+   * @function parsing
+   * @param {string} text - The input text to parse and extract URLs from.
+   * @throws {Error} If there is an error during the parsing process, it will be thrown.
+ */
   parsing: function (text) {
     try {
       const matchUrls = text.match(URL_REGEX);
