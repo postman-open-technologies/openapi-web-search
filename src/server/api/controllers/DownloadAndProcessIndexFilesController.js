@@ -6,6 +6,7 @@ const {
 } = require('../utils/FetchIndexFilesFromDBUtils');
 const { pushDataToQueue } = require('../utils/PushDataToQueue');
 const { startWorker } = require('../workers/DownloadAndProcessWorker');
+const { removeDist } = require('../utils/RemoveDist');
 
 module.exports = {
   /**
@@ -32,6 +33,7 @@ module.exports = {
       // Empty the queue and clean the database for storing latest data
       await emptyQueue();
       await cleanDB(APIsDefinitionsModel);
+      removeDist();
 
       const { channel, QUEUE_NAME, connection } = await connectRabbitMQ();
       pushDataToQueue(indexFileUrls, QUEUE_NAME, channel);

@@ -1,3 +1,7 @@
+const fs = require('fs');
+const { RESULTS_FILE_PATH } = require('../constants/Constants');
+const { checkAndCreateDistFiles } = require('./CheckAndCreateDistFiles');
+
 module.exports = {
   /**
    * Asynchronously saves a list of index file URLs to the database.
@@ -18,16 +22,18 @@ module.exports = {
   },
 
   /**
-   * Asynchronously saves a list of API definitions to the database.
+   * Asynchronously saves API definitions to a file and database.
    *
    * @function saveAPIsDefinitions
-   * @param {Array<string>} definitions - An array of API definitions to be saved to the database.
-   * @returns {Promise<void>} A Promise that resolves when all API definitions have been saved to the database.
-   * @throws {Error} If there is an error during the database insertion process, it will be thrown.
+   * @param {string[]} definitions - An array of API definitions (URLs) to be saved.
+   * @throws {Error} If there's an error while saving the definitions to the file or the database.
+   * @returns {Promise<void>} A Promise that resolves once all definitions have been saved.
  */
   saveAPIsDefinitions: async function(definitions) {
     try {
+      checkAndCreateDistFiles(RESULTS_FILE_PATH);
       definitions.forEach(async url => {
+        fs.writeFileSync(RESULTS_FILE_PATH,`${url}\n`, { flag: 'a+' });
         await APIsDefinitionsModel.create({APIsDefinition: url});
       });
     } catch(error) {
