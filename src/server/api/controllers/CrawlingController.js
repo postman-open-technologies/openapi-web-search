@@ -59,7 +59,7 @@ module.exports = {
       await cleanDB(IndexFilesModel);
       await saveIndexFiles(indexFiles);
 
-      return res.json({indexFiles});
+      return res.json({ indexFiles });
     } catch (error) {
       return res.serverError(error);
     }

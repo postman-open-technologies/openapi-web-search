@@ -1,6 +1,6 @@
 module.exports = {
   attributes: {
-    APIsDefinition: {
+    url: {
       type: 'string',
       required: true,
     },

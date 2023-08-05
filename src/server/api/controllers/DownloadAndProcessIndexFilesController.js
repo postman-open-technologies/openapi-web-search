@@ -18,7 +18,11 @@ module.exports = {
    * @param {Object} res - Express response object.
    * @returns {void} return a 202 Accepted response status code indicates that the request has been accepted for processing, but the processing has not been completed.
    * @throws {Error} If there is an error during the process, it will be thrown.
- */
+   * @example
+   * Query parameter example:
+   * /api/v1/download/process/index-files?skip=0&limit=3&sort=aes
+   *
+  */
   startDownloadAndProcessIndexFiles: async function (req, res) {
     try {
       const { skip, limit, sort } = req.query;

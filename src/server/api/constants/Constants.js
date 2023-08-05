@@ -10,5 +10,6 @@ const URL_REGEX = /http[s]?:\/\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-
 const API_DEFINITION_REGEX = /^(openapi|swagger)\.(json|yaml|yml)(\?[\w=&]+)?$/;
 const SUB_DOMAIN_REGEX = /^(?:https?:\/\/)?api\.[^\/\s]+\.[^\/\s]+(?:\/[^\/\s]*)*$/gi;
 const KEYWORD_REGEX = /^(?:https?:\/\/)?[^\/\s]+(?:\/[^\/\s]+)*(?:\/(openapi|swagger))(?:\/[^\/\s]*)*$/gi;
+const BASE_URL = 'http://localhost:1337';
 
-module.exports = { CC_SERVER_URL, RABBIT_MQ_URL, QUEUE_NAME, FILE_PATH, CHUNK_SIZE, PROGRESS_BAR_WIDTH, URL_REGEX, API_DEFINITION_REGEX, SUB_DOMAIN_REGEX, KEYWORD_REGEX, RESULTS_FILE_PATH, DIST_PATH };
+module.exports = { CC_SERVER_URL, RABBIT_MQ_URL, QUEUE_NAME, FILE_PATH, CHUNK_SIZE, PROGRESS_BAR_WIDTH, URL_REGEX, API_DEFINITION_REGEX, SUB_DOMAIN_REGEX, KEYWORD_REGEX, RESULTS_FILE_PATH, DIST_PATH, BASE_URL };

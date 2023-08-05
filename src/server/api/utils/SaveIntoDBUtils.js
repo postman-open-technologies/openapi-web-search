@@ -1,6 +1,5 @@
-const fs = require('fs');
-const { RESULTS_FILE_PATH } = require('../constants/Constants');
-const { checkAndCreateDistFiles } = require('./CheckAndCreateDistFiles');
+const { downloadFile } = require('../services/DownloadService');
+const ValidateService = require('../services/ValidateService');
 
 module.exports = {
   /**
@@ -31,10 +30,8 @@ module.exports = {
  */
   saveAPIsDefinitions: async function(definitions) {
     try {
-      checkAndCreateDistFiles(RESULTS_FILE_PATH);
       definitions.forEach(async url => {
-        fs.writeFileSync(RESULTS_FILE_PATH,`${url}\n`, { flag: 'a+' });
-        await APIsDefinitionsModel.create({APIsDefinition: url});
+        await APIsDefinitionsModel.create({url});
       });
     } catch(error) {
       throw error;

@@ -51,7 +51,6 @@ module.exports = {
     try {
       const links = [];
       const { data } = await axios.get(url);
-
       const html = data;
       const $ = cheerio.load(html);
 
@@ -63,7 +62,7 @@ module.exports = {
         return links;
       }
 
-      $('tbody tr').each((row) => {
+      $('tbody tr').each((index,row) => {
         const linkTd = $(row).find('td:last-child');
         const link = linkTd.find('a').attr('href');
         links.push(link);
