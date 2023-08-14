@@ -1,5 +1,5 @@
-const { cleanDB } = require('../utils/CleanDBUtils');
-const { saveIndexFiles } = require('../utils/SaveIntoDBUtils');
+const { cleanDB } = require('../utils/DBUtils');
+const { saveIndexFiles } = require('../utils/DBUtils');
 const { selectDataSources } = require('../utils/SelectDataSourcesUtils');
 
 module.exports = {

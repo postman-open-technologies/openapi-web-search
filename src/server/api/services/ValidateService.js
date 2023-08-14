@@ -1,16 +1,11 @@
-const { downloadFile } = require('./DownloadService');
-
-const OpenAPISchemaValidator = require('openapi-schema-validator').default;
+const SwaggerParser = require('swagger-parser');
 
 module.exports = {
-  validate: async function (url) {
+  validatingService: async function (url) {
     try {
-      downloadFile(url).then(response => {
-        
-      }).catch(error => {
-        throw error;
-      });
-    } catch (error) {
+      return await SwaggerParser.validate(url);
+    }
+    catch(error) {
       throw error;
     }
   },

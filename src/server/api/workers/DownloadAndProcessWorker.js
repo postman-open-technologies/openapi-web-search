@@ -1,5 +1,5 @@
 const { connectRabbitMQ } = require('../utils/ConnectRabbitMQUtils');
-const { consumeMessagesFromQueue } = require('../utils/ConsumeMessagesFromQueue');
+const { consumeMessagesFromQueue } = require('../utils/QueueUtils');
 
 module.exports = {
   /**

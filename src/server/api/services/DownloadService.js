@@ -1,4 +1,5 @@
 const axios = require('axios');
+const readline = require('readline');
 const { PROGRESS_BAR_WIDTH } = require('../constants/Constants');
 const { formatSizeUnits } = require('../utils/FormatSizeUnitsUtils');
 
@@ -28,8 +29,8 @@ module.exports = {
             .repeat(Math.round(percent / (100 / PROGRESS_BAR_WIDTH)))
             .padEnd(PROGRESS_BAR_WIDTH, ' ');
 
-          process.stdout.clearLine();
-          process.stdout.cursorTo(0);
+          readline.clearLine(process.stdout);
+          readline.cursorTo(process.stdout, 0);
 
           process.stdout.write(
             `Progress: [${progress}] ${percent}% (${downloadedSize}/${totalSize})`
@@ -37,7 +38,6 @@ module.exports = {
         },
       });
     } catch (error) {
-      console.error(error);
       throw error;
     }
   },

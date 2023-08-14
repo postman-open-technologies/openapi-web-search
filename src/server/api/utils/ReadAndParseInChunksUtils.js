@@ -2,9 +2,9 @@ const { FILE_PATH, CHUNK_SIZE } = require('../constants/Constants');
 const fs = require('fs');
 const {
   removeFileContentAfterProcessing,
-} = require('./RemoveFileContentAfterProcessingUtils');
-const { parsing } = require('../services/ParserService');
-const { saveAPIsDefinitions } = require('./SaveIntoDBUtils');
+} = require('./FileHandlingUtils');
+const { parsingService } = require('../services/ParserService');
+const { saveAPIsDefinitions } = require('./DBUtils');
 
 module.exports = {
   /**
@@ -25,7 +25,7 @@ module.exports = {
       // Read each chunk from the stream and process it asynchronously
       readStream.on('data', async (chunk) => {
         const text = chunk.toString();
-        parsing(text);
+        parsingService(text);
       });
 
       // The 'end' event is triggered when the entire file has been read

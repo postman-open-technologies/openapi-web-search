@@ -1,12 +1,11 @@
-const { cleanDB } = require('../utils/CleanDBUtils');
+const { cleanDB } = require('../utils/DBUtils');
+const { emptyQueue, pushDataToQueue } = require('../utils/QueueUtils');
 const { connectRabbitMQ } = require('../utils/ConnectRabbitMQUtils');
-const { emptyQueue } = require('../utils/EmptyQueueUtils');
 const {
   fetchIndexFilesFromDBUtils,
-} = require('../utils/FetchIndexFilesFromDBUtils');
-const { pushDataToQueue } = require('../utils/PushDataToQueue');
+} = require('../utils/DBUtils');
 const { startWorker } = require('../workers/DownloadAndProcessWorker');
-const { removeDist } = require('../utils/RemoveDist');
+const { removeDist } = require('../utils/FileHandlingUtils');
 
 module.exports = {
   /**
@@ -31,8 +30,9 @@ module.exports = {
       const indexFileUrls = await fetchIndexFilesFromDBUtils({ skip, limit, sort });
 
       if (indexFileUrls.length === 0) {
-        return res.notFound('Before proceeding, execute the initial endpoint to obtain a response from it');
+        return res.badRequest('Before proceeding, execute the initial endpoint to obtain a response from it');
       }
+
 
       // Empty the queue and clean the database for storing latest data
       await emptyQueue();
@@ -40,13 +40,15 @@ module.exports = {
       removeDist();
 
       const { channel, QUEUE_NAME, connection } = await connectRabbitMQ();
+
       pushDataToQueue(indexFileUrls, QUEUE_NAME, channel);
 
-      await channel.close();
-      await connection.close();
 
       // Start the worker to process the downloaded files
       await startWorker();
+
+      await channel.close();
+      await connection.close();
 
       return res
         .status(202)

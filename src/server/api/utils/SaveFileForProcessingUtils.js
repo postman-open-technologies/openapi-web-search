@@ -1,7 +1,7 @@
 const fs = require('fs');
 const zlib = require('zlib');
 const { FILE_PATH } = require('../constants/Constants');
-const { checkAndCreateDistFiles } = require('./CheckAndCreateDistFiles');
+const { checkAndCreateDistFiles } = require('./FileHandlingUtils');
 
 module.exports = {
   /**
