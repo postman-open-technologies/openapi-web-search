@@ -1,5 +1,8 @@
 const childProcess = require('child_process');
+const ElasticSearchConnection = require('../api/utils/ConnectElasticSearchUtils');
 const mongoose = require('mongoose');
+const { INDEX_NAME } = require('../api/constants/Constants');
+const { checkForIndex, removeIndex } = require('../api/utils/ElasticsearchUtils');
 /**
  * Seed Function
  * (sails.config.bootstrap)
@@ -19,32 +22,46 @@ module.exports.bootstrap = async function () {
 
   // Handle any errors from the worker process
   workerProcess.on('error', (error) => {
-    console.error('Worker process error:', error);
+    sails.log.error('Worker process error:', error);
   });
 
   // Handle the exit of the worker process
   workerProcess.on('exit', (code) => {
-    console.log('Worker process exited with code:', code);
+    sails.log.info('Worker process exited with code:', code);
   });
 
   // Handle a graceful shutdown of the worker process on Sails.js app termination
   process.on('SIGINT', () => {
-    console.log('Terminating worker process...');
+    sails.log.error('Terminating worker process...');
     workerProcess.kill('SIGINT');
     process.exit();
   });
-
 
   try {
     await mongoose.connect(sails.config.datastores.default.url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log('MongoDB connected successfully!');
+    sails.log.info('MongoDB connected successfully!');
   } catch (err) {
-    console.error('Error connecting to MongoDB:', err.message);
+    sails.log.error('Error connecting to MongoDB:', err.message);
     throw error;
   }
 
+  const client = ElasticSearchConnection.getClient();
 
+  try {
+    const isExists = await checkForIndex(client);
+
+    if (isExists) {
+      await removeIndex(client);
+      sails.log.info(
+        `Removing already exist index in order to prevent conflict: Index ${INDEX_NAME} deleted.`
+      );
+    }
+
+    sails.client = client;
+  } catch (error) {
+    sails.log.error('Error creating Elasticsearch index:', error.message);
+  }
 };
