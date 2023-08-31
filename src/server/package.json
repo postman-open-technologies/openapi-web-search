@@ -19,6 +19,7 @@
     "kibana"
   ],
   "dependencies": {
+    "@elastic/elasticsearch": "^8.9.0",
     "@sailshq/lodash": "^3.10.3",
     "amqplib": "^0.10.3",
     "axios": "^1.4.0",
