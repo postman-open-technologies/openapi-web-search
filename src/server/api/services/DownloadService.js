@@ -8,7 +8,7 @@ module.exports = {
    * Downloads a file from the https://index.commoncrawl.org/ URL using the GET method and stream response type.
    * Provides download progress information while downloading the file.
    * @param {string} url - The URL of the file to be downloaded.
-   * @returns {Promise} - A promise that resolves to the downloaded file stream.
+   * @returns {Promise<string>} - A promise that resolves to the downloaded file stream.
    */
   downloadFile: async function (url) {
     try {

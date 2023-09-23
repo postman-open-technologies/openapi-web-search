@@ -15,7 +15,8 @@ module.exports = {
    */
   retrieveIndexFilesUrlsFromDirs: async function (url) {
     try {
-      const response = await downloadFile(url);
+      console.log(url);
+      const response = await downloadFile(`https://data.commoncrawl.org${url}`);
       const gunzip = zlib.createGunzip();
 
       const lines = readline.createInterface({

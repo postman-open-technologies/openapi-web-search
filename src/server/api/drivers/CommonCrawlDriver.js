@@ -22,7 +22,7 @@ module.exports = {
         latest
       );
 
-      const indexFiles = processDataWithExponentialRetry(crawledDirectories);
+      const indexFiles = await processDataWithExponentialRetry(crawledDirectories);
       return indexFiles;
     } catch (error) {
       throw error;
