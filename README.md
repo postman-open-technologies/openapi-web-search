@@ -58,19 +58,19 @@ yarn run dev
 
 ```js
 
-[1] http://localhost:1337/api/v1/run/crawler?latest=true
-[2] http://localhost:1337/api/v1/process/index-files?skip=0&limit=20&sort=aes
-[3] http://localhost:1337/api/v1/indexing
-[4] http://localhost:1337/api/v1/search?q=<query>
+1. http://localhost:1337/api/v1/run/crawler?latest=true
+2. http://localhost:1337/api/v1/process/index-files?skip=0&limit=20&sort=aes
+3. http://localhost:1337/api/v1/indexing
+4. http://localhost:1337/api/v1/search?q=<query>
 
 ```
 
 > Explanation:
 
-> [1] The first endpoint will crawl the common-crawl website to get some files which include the paths to index files that are converted into the appropriate endpoints. 
-> [2] The second endpoint initiates the background process of downloading index files, processing them, and storing the results, which are validated openapi definitions, in mongodb. 
-> [3] Third endpoint begins indexing the previously gathered MongoDB results into Elasticsearch..
-> [4] The last endpoint is utilised to create a search query for optimum retrival.
+1. The first endpoint will crawl the common-crawl website to get some files which include the paths to index files that are converted into the appropriate endpoints. 
+2. The second endpoint initiates the background process of downloading index files, processing them, and storing the results, which are validated openapi definitions, in mongodb. 
+3. Third endpoint begins indexing the previously gathered MongoDB results into Elasticsearch..
+4. The last endpoint is utilised to create a search query for optimum retrival.
 
 
 

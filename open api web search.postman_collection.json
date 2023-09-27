@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "a19eee01-9a5f-4228-8353-c7fcc3615531",
+		"name": "open api web search",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20917353"
+	},
+	"item": [
+		{
+			"name": "start crawling",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dataSource\": \"commonCrawl\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1337/api/v1/run/crawler?latest=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"v1",
+						"run",
+						"crawler"
+					],
+					"query": [
+						{
+							"key": "latest",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download-process-index-files",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1337/api/v1/process/index-files?skip=0&limit=20&sort=aes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"v1",
+						"process",
+						"index-files"
+					],
+					"query": [
+						{
+							"key": "skip",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "sort",
+							"value": "aes"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchController",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1337/api/v1/search?q=austria",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"v1",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "austria"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "indexController",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1337/api/v1/indexing",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1337",
+					"path": [
+						"api",
+						"v1",
+						"indexing"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
