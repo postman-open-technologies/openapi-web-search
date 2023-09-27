@@ -50,8 +50,7 @@ yarn run dev
 
 ```
 
-> After launching the local server, we can use Postman to begin sending http requests to the specified endpoints. I've included a postman collection below to get you started:
-
+> After launching the local server, we can use Postman to begin sending http requests to the specified endpoints. I've included a postman collection in root of the project to get you started:
 
 
 > Run the following endpoints in the specified order after configuring Postman with the collection above:
