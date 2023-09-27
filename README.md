@@ -50,11 +50,11 @@ yarn run dev
 
 ```
 
-### After launching the local server, we can use Postman to begin sending http requests to the specified endpoints. I've included a postman collection below to get you started:
+> After launching the local server, we can use Postman to begin sending http requests to the specified endpoints. I've included a postman collection below to get you started:
 
 
 
-### Run the following endpoints in the specified order after configuring Postman with the collection above:
+> Run the following endpoints in the specified order after configuring Postman with the collection above:
 
 ```js
 
@@ -65,12 +65,12 @@ yarn run dev
 
 ```
 
-### Explanation:
+> Explanation:
 
-[1] The first endpoint will crawl the common-crawl website to get some files which include the paths to index files that are converted into the appropriate endpoints. 
-[2] The second endpoint initiates the background process of downloading index files, processing them, and storing the results, which are validated openapi definitions, in mongodb. 
-[3] Third endpoint begins indexing the previously gathered MongoDB results into Elasticsearch..
-[4] The last endpoint is utilised to create a search query for optimum retrival.
+> [1] The first endpoint will crawl the common-crawl website to get some files which include the paths to index files that are converted into the appropriate endpoints. 
+> [2] The second endpoint initiates the background process of downloading index files, processing them, and storing the results, which are validated openapi definitions, in mongodb. 
+> [3] Third endpoint begins indexing the previously gathered MongoDB results into Elasticsearch..
+> [4] The last endpoint is utilised to create a search query for optimum retrival.
 
 
 
