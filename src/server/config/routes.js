@@ -11,6 +11,8 @@
 module.exports.routes = {
 
   'POST /api/v1/run/crawler': 'CrawlingController.startCrawling',
-  'GET /api/v1/process/index-files': 'DownloadAndProcessIndexFilesController.startDownloadAndProcessIndexFiles'
+  'GET /api/v1/process/index-files': 'DownloadAndProcessIndexFilesController.startDownloadAndProcessIndexFiles',
+  'GET /api/v1/indexing': 'IndexingController.startIndexing',
+  'GET /api/v1/search': 'SearchController.startSearching'
 
 };

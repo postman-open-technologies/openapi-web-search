@@ -19,6 +19,7 @@
     "kibana"
   ],
   "dependencies": {
+    "@elastic/elasticsearch": "^8.9.0",
     "@sailshq/lodash": "^3.10.3",
     "amqplib": "^0.10.3",
     "axios": "^1.4.0",
@@ -44,7 +45,7 @@
     "supertest": "^6.3.3"
   },
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
+    "start": "NODE_ENV=development node app.js",
     "test": "node ./node_modules/mocha/bin/mocha --timeout 100000 --recursive 'tests/{integration,unit}/**/*.test.js'",
     "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "dev": "nodemon app.js"

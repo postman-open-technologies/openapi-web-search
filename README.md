@@ -22,25 +22,61 @@ The goal of this project can be achieved with the following milestones:
 4. **Providing an interface**: Design a UI for API consumers and producers to initiate a search looking for APIs. Initially, the search can be done using metadata—the info object of the [OpenAPI document](https://spec.openapis.org/oas/latest.html#info-object).
 5. **Updating dataset**: Regularly update the crawl results and re-index them for better search results.
 
-## Info about GSoC’23
 
-> **Note**: This project idea is shortlisted for [Google Summer Of Code 2023](https://blog.postman.com/join-postman-at-google-summer-of-code-2023/). Find the initial conversation [here](https://github.com/postman-open-technologies/gsoc-2023/issues/7).
+# Running the Server
 
-If you're an aspiring GSoC candidate, here's what you should know: 
+> Fork and/or clone the OpenAPI Web Search repo and change directory into it:
 
-- Having said that the purpose of this project is the **discovery of APIs from lesser-known sources**, crawling is where you will spend a good chunk of time.
-- The proposal should expand on each milestone mentioned in the above section. We understand that completing all the milestones within the 12 weeks of the GSoC period may not be feasible. We can figure it out based on the timeline provided.
-- There is no restriction on the choice of language, framework, or tools for building the solution for Open API Web Search.
-- We really don’t believe in reinventing the wheel. Feel free to use an existing solution like [Common Crawl](https://commoncrawl.org/).
-- For any concerns, kindly reach out to [@vinitshahdeo](https://github.com/vinitshahdeo) or [@MikeRalphson](https://github.com/MikeRalphson).
+```js
 
-#### Qualifying task
+git clone https://github.com/<username>/openapi-web-search.git
+cd openapi-web-search/src/server
 
-As mentioned in [`CONTRIBUTOR_GUIDANCE.md`](https://github.com/postman-open-technologies/gsoc-2023/blob/main/CONTRIBUTOR_GUIDANCE.md), please refer to **[#2](https://github.com/postman-open-technologies/openapi-web-search/issues/2)** for the qualifying task.
+```
+
+> Install dependencies via yarn: 
+
+```js
+
+yarn install
+
+```
+
+> Start local server:
+
+```js
+
+yarn run dev
+
+```
+
+> After launching the local server, we can use Postman to begin sending http requests to the specified endpoints. I've included a postman collection in root of the project to get you started:
 
 
-## Contact
+> Run the following endpoints in the specified order after configuring Postman with the collection above:
 
-If you have any questions or queries, please [create an issue](openapi-web-search) on this repo (with a prefix GSoC 2023), start a topic on [our community forums in the GSoC category](https://community.postman.com/c/open-technology/gsoc/42) or send an email to us at gsoc@postman.com.
+```js
 
-[![Twitter](https://img.shields.io/badge/Twitter-%40getpostman-orange?logo=twitter&logoColor=white)](https://twitter.com/getpostman) [![YouTube](https://img.shields.io/badge/YouTube-%40postman-orange?logo=youtube)](https://www.youtube.com/c/postman)
+1. http://localhost:1337/api/v1/run/crawler?latest=true
+2. http://localhost:1337/api/v1/process/index-files?skip=0&limit=20&sort=aes
+3. http://localhost:1337/api/v1/indexing
+4. http://localhost:1337/api/v1/search?q=<query>
+
+```
+
+> Explanation:
+
+1. The first endpoint will crawl the common-crawl website to get some files which include the paths to index files that are converted into the appropriate endpoints. 
+2. The second endpoint initiates the background process of downloading index files, processing them, and storing the results, which are validated openapi definitions, in mongodb. 
+3. Third endpoint begins indexing the previously gathered MongoDB results into Elasticsearch..
+4. The last endpoint is utilised to create a search query for optimum retrival.
+
+
+
+
+
+
+
+
+
+
